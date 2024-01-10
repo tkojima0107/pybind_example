@@ -1,8 +1,10 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
-#include <iostream>
-#include <chrono>
+
+// check availability of OpenMP
+#ifdef _OPENMP
 #include <omp.h>
+#endif
 
 namespace py = pybind11;
 
@@ -23,7 +25,9 @@ py::array_t<T> matmul(py::array_t<T> &arr1, py::array_t<T> &arr2) {
 	py::array_t<T> res = py::array_t<T>(buf1.shape[0] * buf2.shape[1]);
 	T *res_ptr = (T *)res.request().ptr;
 
+	#ifdef _OPENMP
 	#pragma omp parallel for
+	#endif
 	for (int i = 0; i < buf1.shape[0]; i++) {
 		for (int j = 0; j < buf2.shape[1]; j++) {
 			T sum = 0;
