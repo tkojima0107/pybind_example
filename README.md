@@ -1,5 +1,6 @@
 # pybind_example
-## install and build
+
+## build and install
 
 ```
 pip3 install .
