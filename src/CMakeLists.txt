@@ -1,11 +1,11 @@
 #
 #    Copyright (C) 2024 The University of Tokyo
 #    
-#    File:          /src/CMakeLists.txt
+#    File:          /Downloads/pybind_example/src/CMakeLists.txt
 #    Project:       pybind_example
 #    Author:        Takuya Kojima in The University of Tokyo (tkojima@hal.ipc.i.u-tokyo.ac.jp)
 #    Created Date:  11-01-2024 21:39:57
-#    Last Modified: 11-01-2024 21:39:58
+#    Last Modified: 11-01-2024 22:49:32
 #
 
 
@@ -24,6 +24,22 @@ execute_process(
   OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 find_package(pybind11 REQUIRED HINTS ${PYBIND11_SITE_PACKAGES})
+
+# find OpenMP support for MacOS
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+	execute_process(COMMAND brew --prefix libomp
+					OUTPUT_VARIABLE OpenMP_ROOT
+					OUTPUT_STRIP_TRAILING_WHITESPACE)  
+
+	set(OpenMP_C_LIB_NAMES "omp")
+	set(OpenMP_CXX_LIB_NAMES "omp")
+	set(OpenMP_omp_LIBRARY "${OpenMP_ROOT}/lib/")
+
+	include_directories("${OpenMP_ROOT}/include")
+	link_directories("${OpenMP_ROOT}/lib/")
+	set(OpenMP_CXX_FLAGS "-Xpreprocessor -fopenmp -lomp")
+
+endif()
 
 find_package(OpenMP)
 find_package(CUDA)

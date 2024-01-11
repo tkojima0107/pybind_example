@@ -1,11 +1,11 @@
 /*
 *    Copyright (C) 2024 The University of Tokyo
 *    
-*    File:          /src/matmul/matmul_opencl.cpp
+*    File:          /Downloads/pybind_example/src/matmul/matmul_opencl.cpp
 *    Project:       pybind_example
 *    Author:        Takuya Kojima in The University of Tokyo (tkojima@hal.ipc.i.u-tokyo.ac.jp)
 *    Created Date:  11-01-2024 21:37:16
-*    Last Modified: 11-01-2024 21:37:21
+*    Last Modified: 11-01-2024 22:39:30
 */
 
 #include <pybind11/pybind11.h>
@@ -198,7 +198,11 @@ cl_kernel cl_init()
 		throw error_msg_with_code("Error: Failed to create a compute context", err);
 	}
 	// create command queue
+#ifdef __APPLE__
+	command_queue = clCreateCommandQueue(context, device_id, 0, &err);
+#else
 	command_queue = clCreateCommandQueueWithProperties(context, device_id, 0, &err);
+#endif
 
 	// load program
 	debug_print("Loading program...\n");
