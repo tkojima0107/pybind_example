@@ -1,3 +1,14 @@
+/*
+*    Copyright (C) 2024 The University of Tokyo
+*    
+*    File:          /src/matmul/matmul_cuda.cu
+*    Project:       pybind_example
+*    Author:        Takuya Kojima in The University of Tokyo (tkojima@hal.ipc.i.u-tokyo.ac.jp)
+*    Created Date:  11-01-2024 21:39:06
+*    Last Modified: 11-01-2024 21:39:08
+*/
+
+
 #include <sstream>
 #include <iostream>
 #include <cuda_runtime.h>
@@ -106,6 +117,11 @@ py::array_t<T> matmul(py::array_t<T> &array_a, py::array_t<T> &array_b) {
 		throw std::runtime_error(cudaGetErrorString(error));
 	}
 
+	// free
+	cudaFree(a_device);
+	cudaFree(b_device);
+	cudaFree(c_device);
+	
 	return res;
 }
 

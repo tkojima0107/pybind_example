@@ -1,3 +1,13 @@
+/*
+*    Copyright (C) 2024 The University of Tokyo
+*    
+*    File:          /src/matmul/matmul.cpp
+*    Project:       pybind_example
+*    Author:        Takuya Kojima in The University of Tokyo (tkojima@hal.ipc.i.u-tokyo.ac.jp)
+*    Created Date:  11-01-2024 21:42:23
+*    Last Modified: 11-01-2024 21:42:23
+*/
+
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
 

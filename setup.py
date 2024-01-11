@@ -1,3 +1,14 @@
+###
+#   Copyright (C) 2024 The University of Tokyo
+#   
+#   File:          /setup.py
+#   Project:       pybind_example
+#   Author:        Takuya Kojima in The University of Tokyo (tkojima@hal.ipc.i.u-tokyo.ac.jp)
+#   Created Date:  11-01-2024 21:40:07
+#   Last Modified: 11-01-2024 21:40:14
+###
+
+
 from setuptools import setup, find_packages, Extension
 import subprocess
 import os
@@ -14,7 +25,6 @@ else:
     class CMakeExtension(Extension):
         def __init__(self, name, cmake_src_dir):
             super().__init__(name, sources=[])
-            print(f"init {name}")
             self.cmake_src_dir = os.path.abspath(cmake_src_dir)
 
 
@@ -43,7 +53,6 @@ else:
         CMakeExtension("pybind_example", 'src')
     ]
 
-print(ext_modules)
 
 setup(
     name='pybind-example',
